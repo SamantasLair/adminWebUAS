@@ -1,12 +1,8 @@
 <?php
-// Variabel $currentPage harus didefinisikan di file yang meng-include sidebar ini.
-// Contoh: $currentPage = 'dashboard';
-// Jika tidak diset, kita bisa set default atau tidak ada yang aktif.
 if (!isset($currentPage)) {
-    $currentPage = ''; // Atau bisa juga halaman default misal 'dashboard'
+    $currentPage = ''; 
 }
 
-// Fungsi untuk memeriksa apakah link adalah halaman saat ini
 function isActive($pageName, $currentPage) {
     return ($pageName === $currentPage) ? 'text-secondary bg-gray-700' : 'text-black-000 hover:bg-gray-700 hover:text-secondary';
 }

@@ -1,7 +1,6 @@
 <?php
-// Variabel $currentPage harus didefinisikan di file yang meng-include menu ini.
 if (!isset($currentPage)) {
-    $currentPage = ''; // Default jika tidak diset
+    $currentPage = ''; 
 }
 
 if (!function_exists('isActiveMobile')) { 

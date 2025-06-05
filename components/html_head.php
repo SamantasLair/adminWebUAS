@@ -1,7 +1,7 @@
 <?php
-// Pastikan variabel $pageTitle sudah didefinisikan sebelum meng-include file ini
+
 if (!isset($pageTitle)) {
-    $pageTitle = "Admin Dashboard"; // Judul default jika tidak diset
+    $pageTitle = "Admin Dashboard"; 
 }
 ?>
 <!DOCTYPE html>
@@ -48,14 +48,14 @@ if (!isset($pageTitle)) {
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1f2937; /* bg-gray-800 */
+            background: #1f2937; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #4b5563; /* bg-gray-600 */
+            background: #4b5563;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280; /* bg-gray-500 */
+            background: #6b7280; 
         }
         input[type="date"]::-webkit-calendar-picker-indicator,
         input[type="file"]::-webkit-file-upload-button {
@@ -71,7 +71,6 @@ if (!isset($pageTitle)) {
             content: '';
             @apply absolute w-[5px] h-[10px] border-primary border-r-2 border-b-2 top-[2px] left-[6px] rotate-45;
         }
-        /* Untuk line-clamp jika digunakan di halaman lain */
         .line-clamp-3 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
