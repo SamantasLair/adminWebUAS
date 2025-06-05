@@ -79,7 +79,7 @@ require __DIR__ . '/components/html_head.php';
                         </thead>
                         <tbody class="divide-y divide-gray-700">
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-200">2310114001</td>
+                                <td class="px-6 py-4 text-sm text-gray-200">2317051001</td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm font-medium text-gray-100">Andi Wijaya</div>
                                 </td>
@@ -96,7 +96,7 @@ require __DIR__ . '/components/html_head.php';
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-200">2310114002</td>
+                                <td class="px-6 py-4 text-sm text-gray-200">2317051002</td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm font-medium text-gray-100">Budi Santoso</div>
                                 </td>
@@ -113,7 +113,7 @@ require __DIR__ . '/components/html_head.php';
                                 </td>
                             </tr>
                              <tr>
-                                <td class="px-6 py-4 text-sm text-gray-200">2310114003</td>
+                                <td class="px-6 py-4 text-sm text-gray-200">2317051003</td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm font-medium text-gray-100">Citra Lestari</div>
                                 </td>
