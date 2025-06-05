@@ -7,23 +7,23 @@ $currentPage = "mata_kuliah";
 $mata_kuliah_list_dummy = [
     [
         "id" => 1, "kode" => "IF210", "nama" => "Dasar Pemrograman", "sks" => 3, "semester" => 1, 
-        "dosen" => "Dr. Annisa P.", "kuota" => 2, "status" => "Aktif"
+        "dosen" => "Dwi Sakethi", "kuota" => 2, "status" => "Aktif"
     ],
     [
         "id" => 2, "kode" => "IF220", "nama" => "Struktur Data & Algoritma", "sks" => 4, "semester" => 2, 
-        "dosen" => "Prof. Budi S.", "kuota" => 3, "status" => "Aktif"
+        "dosen" => "Rico Adrian", "kuota" => 3, "status" => "Aktif"
     ],
     [
         "id" => 3, "kode" => "IF310", "nama" => "Pemrograman Web", "sks" => 3, "semester" => 3, 
-        "dosen" => "Dr. Citra D.", "kuota" => 2, "status" => "Nonaktif"
+        "dosen" => "Rizky Prabowo", "kuota" => 2, "status" => "Nonaktif"
     ],
     [
         "id" => 4, "kode" => "IF320", "nama" => "Basis Data", "sks" => 3, "semester" => 4, 
-        "dosen" => "Dr. Eka F.", "kuota" => 1, "status" => "Aktif"
+        "dosen" => "Aristoteles", "kuota" => 1, "status" => "Aktif"
     ],
     [
-        "id" => 5, "kode" => "KU400", "nama" => "Kewirausahaan", "sks" => 2, "semester" => 5, 
-        "dosen" => "Prof. Fajar G.", "kuota" => 4, "status" => "Aktif"
+        "id" => 5, "kode" => "KU400", "nama" => "Etika", "sks" => 2, "semester" => 5, 
+        "dosen" => "Wartarius", "kuota" => 4, "status" => "Aktif"
     ]
 ];
 
