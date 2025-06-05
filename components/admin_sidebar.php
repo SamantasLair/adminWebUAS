@@ -27,6 +27,13 @@ function isActive($pageName, $currentPage) {
             </div>
             <span>Pendaftar</span>
         </a>
+        <a href="mata_kuliah.php"
+            class="flex items-center space-x-3 px-4 py-3 <?php echo isActive('mata_kuliah', $currentPage); ?> rounded-lg"> 
+            <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-book-2-line"></i>
+            </div>
+            <span>Daftar Mata Kuliah</span>
+        </a>
         <a href="jadwal_wawancara.php"
             class="flex items-center space-x-3 px-4 py-3 <?php echo isActive('jadwal_wawancara', $currentPage); ?> rounded-lg"> 
             <div class="w-5 h-5 flex items-center justify-center">
