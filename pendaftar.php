@@ -1,5 +1,5 @@
 <?php
-session_start(); // Mulai session jika belum dimulai
+session_start(); 
 
 // // Cek autentikasi (aktifkan jika sudah ada sistem login yang berfungsi)
 // if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
@@ -7,11 +7,9 @@ session_start(); // Mulai session jika belum dimulai
 //     exit;
 // }
 
-// Definisikan variabel khusus untuk halaman ini
 $pageTitle = "Data Pendaftar";
-$currentPage = "pendaftar"; // Untuk menandai menu aktif
+$currentPage = "pendaftar"; 
 
-// Data dummy pendaftar
 $pendaftar_list_dummy = [
     [
         "id" => 1, "nama" => "Ahmad Fauzi", "npm" => "1234567890", "status" => "Diterima",
@@ -27,21 +25,18 @@ $pendaftar_list_dummy = [
     ],
 ];
 
-// 1. Include Komponen Head HTML
 require __DIR__ . '/components/html_head.php';
 ?>
 
 <body class="bg-primary text-gray-300">
 
     <?php
-    // 2. Include Komponen Header Admin
     require __DIR__ . '/components/admin_header.php';
     ?>
 
     <div class="flex min-h-screen pt-[68px] sm:pt-[72px]">
 
         <?php
-        // 3. Include Komponen Sidebar Admin
         require __DIR__ . '/components/admin_sidebar.php';
         ?>
 
@@ -104,7 +99,7 @@ require __DIR__ . '/components/html_head.php';
                                 </tr>
                             <?php else:
                                 foreach ($pendaftar_list_dummy as $pendaftar):
-                                    $status_color = 'text-yellow-400 bg-yellow-500/20'; // Default untuk 'Dalam Review' atau status lain
+                                    $status_color = 'text-yellow-400 bg-yellow-500/20'; 
                                     if ($pendaftar['status'] == 'Diterima') $status_color = 'text-green-400 bg-green-500/20';
                                     if ($pendaftar['status'] == 'Ditolak') $status_color = 'text-red-400 bg-red-500/20';
                                 ?>
@@ -217,77 +212,151 @@ require __DIR__ . '/components/html_head.php';
     </div>
 
     <div id="modal-add-edit-pendaftar" class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-[90] hidden p-4 transition-opacity duration-300 ease-in-out opacity-0">
-        <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-700 transform scale-95 transition-transform duration-300 ease-in-out custom-scrollbar">
+        <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-1xl w-full max-w-1xl max-h-[90vh] overflow-y-auto border border-gray-700 transform scale-95 transition-transform duration-300 ease-in-out custom-scrollbar">
             <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
                 <h2 id="modal-pendaftar-title" class="text-xl font-semibold text-secondary">Data Pendaftar</h2>
                 <button id="btn-close-modal-add-edit" class="text-gray-400 hover:text-secondary transition-colors duration-150">
                     <i class="ri-close-line ri-xl"></i>
                 </button>
             </div>
-            <form id="form-add-edit-pendaftar" class="space-y-5">
+            <form id="form-add-edit-pendaftar" class="space-y-6">
                 <input type="hidden" name="id" id="pendaftar-id">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                    <div>
-                        <label for="pendaftar-nama" class="form-label-custom">Nama Lengkap <span class="text-red-400">*</span></label>
-                        <input type="text" name="nama" id="pendaftar-nama" required class="form-input-custom-modal" placeholder="Masukkan nama lengkap">
-                    </div>
-                    <div>
-                        <label for="pendaftar-npm" class="form-label-custom">NPM <span class="text-red-400">*</span></label>
-                        <input type="text" name="npm" id="pendaftar-npm" pattern="\d{10}" title="NPM harus 10 digit angka" required class="form-input-custom-modal" placeholder="Masukkan 10 digit NPM">
-                    </div>
-                    <div>
-                        <label for="pendaftar-no_wa" class="form-label-custom">No. WA <span class="text-red-400">*</span></label>
-                        <input type="tel" name="no_wa" id="pendaftar-no_wa" required class="form-input-custom-modal" placeholder="Contoh: 081234567890">
-                    </div>
-                    <div>
-                        <label for="pendaftar-status" class="form-label-custom">Status <span class="text-red-400">*</span></label>
-                        <select name="status" id="pendaftar-status" required class="form-input-custom-modal">
-                            <option value="" disabled selected>Pilih Status</option> <option value="Dalam Review">Dalam Review</option>
-                            <option value="Diterima">Diterima</option>
-                            <option value="Ditolak">Ditolak</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="pendaftar-mk_1" class="form-label-custom">Mata Kuliah Pilihan 1</label>
-                        <input type="text" name="mk_1" id="pendaftar-mk_1" class="form-input-custom-modal" placeholder="Contoh: Pemrograman Web">
-                    </div>
-                    <div>
-                        <label for="pendaftar-mk_2" class="form-label-custom">Mata Kuliah Pilihan 2 (Opsional)</label>
-                        <input type="text" name="mk_2" id="pendaftar-mk_2" class="form-input-custom-modal" placeholder="Contoh: Basis Data">
-                    </div>
-                </div>
-                <div class="pt-1">
-                    <label for="pendaftar-alasan" class="form-label-custom">Alasan Mendaftar</label>
-                    <textarea name="alasan" id="pendaftar-alasan" rows="3" class="form-input-custom-modal" placeholder="Jelaskan alasan Anda mendaftar..."></textarea>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-5 pt-1">
-                    <div class="w-full">
-                        <label for="pendaftar-bersedia_2_mk" class="form-label-custom">Bersedia 2 MK?</label>
-                        <select name="bersedia_2_mk" id="pendaftar-bersedia_2_mk" class="form-input-custom-modal w-full">
-                            <option value="Ya">Ya</option>
-                            <option value="Tidak">Tidak</option>
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <label for="pendaftar-pernah_asdos" class="form-label-custom">Pernah Jadi Asdos?</label>
-                        <select name="pernah_asdos" id="pendaftar-pernah_asdos" class="form-input-custom-modal w-full">
-                            <option value="Tidak">Tidak</option>
-                            <option value="Ya">Ya</option>
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <label for="pendaftar-bersedia_mk_lain" class="form-label-custom">Bersedia MK Lain?</label>
-                        <select name="bersedia_mk_lain" id="pendaftar-bersedia_mk_lain" class="form-input-custom-modal w-full">
-                            <option value="Bersedia">Bersedia</option>
-                            <option value="Tidak Bersedia">Tidak Bersedia</option>
-                        </select>
+                
+                <div class="bg-gray-700/30 rounded-lg p-5 space-y-5">
+                    <h3 class="text-lg font-medium text-gray-200 mb-4">Data Pribadi</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                        <div class="form-group">
+                            <label for="pendaftar-nama" class="form-label-custom">Nama Lengkap <span class="text-red-400">*</span></label>
+                            <div class="relative rounded-lg">
+                                <span class="input-icon">
+                                    <i class="ri-user-line"></i>
+                                </span>
+                                <input type="text" name="nama" id="pendaftar-nama" required class="form-input-custom-modal pl-10" placeholder="Masukkan nama lengkap">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-npm" class="form-label-custom">NPM <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-id-card-line"></i>
+                                </span>
+                                <input type="text" name="npm" id="pendaftar-npm" pattern="\d{10}" title="NPM harus 10 digit angka" required class="form-input-custom-modal pl-10" placeholder="Masukkan 10 digit NPM">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-no_wa" class="form-label-custom">No. WA <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-whatsapp-line"></i>
+                                </span>
+                                <input type="tel" name="no_wa" id="pendaftar-no_wa" required class="form-input-custom-modal pl-10" placeholder="Contoh: 081234567890">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-status" class="form-label-custom">Status <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-checkbox-circle-line"></i>
+                                </span>
+                                <select name="status" id="pendaftar-status" required class="form-input-custom-modal pl-10">
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="Dalam Review">Dalam Review</option>
+                                    <option value="Diterima">Diterima</option>
+                                    <option value="Ditolak">Ditolak</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="pt-1">
-                    <label for="pendaftar-surat_pernyataan_url" class="form-label-custom">Link Gambar Surat Pernyataan (URL)</label>
-                    <input type="url" name="surat_pernyataan_url" id="pendaftar-surat_pernyataan_url" class="form-input-custom-modal" placeholder="https://example.com/gambar.jpg">
-                    <div class="mt-2">
-                        <img id="preview-surat-edit" src="" alt="Preview Surat Pernyataan" class="rounded-md max-h-36 hidden border border-gray-600 bg-gray-700/50 p-1">
+
+                <div class="bg-gray-700/30 rounded-lg p-5 space-y-5">
+                    <h3 class="text-lg font-medium text-gray-200 mb-4">Data Mata Kuliah</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                        <div class="form-group">
+                            <label for="pendaftar-mk_1" class="form-label-custom">Mata Kuliah Pilihan 1</label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-book-line"></i>
+                                </span>
+                                <input type="text" name="mk_1" id="pendaftar-mk_1" class="form-input-custom-modal pl-10" placeholder="Contoh: Pemrograman Web">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-mk_2" class="form-label-custom">Mata Kuliah Pilihan 2 (Opsional)</label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-book-2-line"></i>
+                                </span>
+                                <input type="text" name="mk_2" id="pendaftar-mk_2" class="form-input-custom-modal pl-10" placeholder="Contoh: Basis Data">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pendaftar-alasan" class="form-label-custom">Alasan Mendaftar</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-gray-400 input-icon top-align"> 
+                                <i class="ri-message-2-line"></i>
+                            </span>
+                            <textarea name="alasan" id="pendaftar-alasan" rows="3" class="form-input-custom-modal pl-10" placeholder="Jelaskan alasan Anda mendaftar..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-700/30 rounded-lg p-5 space-y-5">
+                    <h3 class="text-lg font-medium text-gray-200 mb-4">Data Tambahan</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-5">
+                        <div class="form-group">
+                            <label for="pendaftar-bersedia_2_mk" class="form-label-custom">Bersedia 2 MK?</label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-check-double-line"></i>
+                                </span>
+                                <select name="bersedia_2_mk" id="pendaftar-bersedia_2_mk" class="form-input-custom-modal pl-10 w-full">
+                                    <option value="Ya">Ya</option>
+                                    <option value="Tidak">Tidak</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-pernah_asdos" class="form-label-custom">Pernah Jadi Asdos?</label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-user-star-line"></i>
+                                </span>
+                                <select name="pernah_asdos" id="pendaftar-pernah_asdos" class="form-input-custom-modal pl-10 w-full">
+                                    <option value="Tidak">Tidak</option>
+                                    <option value="Ya">Ya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pendaftar-bersedia_mk_lain" class="form-label-custom">Bersedia MK Lain?</label>
+                            <div class="relative">
+                                <span class="input-icon">
+                                    <i class="ri-book-open-line"></i>
+                                </span>
+                                <select name="bersedia_mk_lain" id="pendaftar-bersedia_mk_lain" class="form-input-custom-modal pl-10 w-full">
+                                    <option value="Bersedia">Bersedia</option>
+                                    <option value="Tidak Bersedia">Tidak Bersedia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-700/30 rounded-lg p-5 space-y-5">
+                    <h3 class="text-lg font-medium text-gray-200 mb-4">Upload Surat</h3>
+                    <div class="form-group">
+                        <label for="pendaftar-surat_pernyataan_url" class="form-label-custom">Link Gambar Surat Pernyataan (URL)</label>
+                        <div class="relative">
+                            <span class="input-icon">
+                                <i class="ri-file-upload-line"></i>
+                            </span>
+                            <input type="url" name="surat_pernyataan_url" id="pendaftar-surat_pernyataan_url" class="form-input-custom-modal pl-10" placeholder="https://example.com/gambar.jpg">
+                        </div>
+                        <div class="mt-2">
+                            <img id="preview-surat-edit" src="" alt="Preview Surat Pernyataan" class="rounded-md max-h-36 hidden border border-gray-600 bg-gray-700/50 p-1">
+                        </div>
                     </div>
                 </div>
 
@@ -299,355 +368,90 @@ require __DIR__ . '/components/html_head.php';
         </div>
     </div>
 
-
     <?php
     require __DIR__ . '/components/notifications_dropdown.php';
     require __DIR__ . '/components/admin_menu_dropdown.php';
     require __DIR__ . '/components/mobile_menu.php';
     require __DIR__ . '/components/footer_scripts.php';
     ?>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const modalLihatLanjut = document.getElementById('modal-lihat-lanjut');
-        const btnCloseModalLihatLanjut = document.getElementById('btn-close-modal-lihat-lanjut');
-        const btnOkModalLihatLanjut = document.getElementById('btn-ok-modal-lihat-lanjut');
-        const modalLihatLanjutContent = modalLihatLanjut ? modalLihatLanjut.querySelector('.transform') : null;
-
-
-        const modalAddEditPendaftar = document.getElementById('modal-add-edit-pendaftar');
-        const btnTambahPendaftar = document.getElementById('btn-tambah-pendaftar');
-        const btnCloseModalAddEdit = document.getElementById('btn-close-modal-add-edit');
-        const btnCancelModalAddEdit = document.getElementById('btn-cancel-modal-add-edit');
-        const formAddEditPendaftar = document.getElementById('form-add-edit-pendaftar');
-        const modalPendaftarTitle = document.getElementById('modal-pendaftar-title');
-        const modalPendaftarSubmitBtn = document.getElementById('btn-submit-modal-add-edit');
-        const pendaftarIdInput = document.getElementById('pendaftar-id');
-        const pendaftarNpmInput = document.getElementById('pendaftar-npm');
-        const pendaftarStatusSelect = document.getElementById('pendaftar-status'); // Ambil elemen select status
-        const previewSuratEdit = document.getElementById('preview-surat-edit');
-        const inputSuratPernyataanUrl = document.getElementById('pendaftar-surat_pernyataan_url');
-        const modalAddEditContent = modalAddEditPendaftar ? modalAddEditPendaftar.querySelector('.transform') : null;
-
-
-        const tabelPendaftarBody = document.querySelector('#tabel-pendaftar tbody');
-        const noResultsPendaftarDiv = document.getElementById('no-results-pendaftar');
-
-        let currentlyEditingRow = null;
-
-        function openModalEnhanced(modalElement, modalContentElement) {
-            if (!modalElement || !modalContentElement) return;
-            modalElement.classList.remove('hidden');
-            setTimeout(() => {
-                modalElement.classList.remove('opacity-0');
-                modalContentElement.classList.remove('scale-95');
-            }, 10); // Small delay for CSS transition
-        }
-
-        function closeModalEnhanced(modalElement, modalContentElement) {
-            if (!modalElement || !modalContentElement) return;
-            modalElement.classList.add('opacity-0');
-            modalContentElement.classList.add('scale-95');
-            setTimeout(() => {
-                modalElement.classList.add('hidden');
-            }, 300); // Duration matches transition-opacity
-        }
-
-
-        if (btnCloseModalLihatLanjut) btnCloseModalLihatLanjut.addEventListener('click', () => closeModalEnhanced(modalLihatLanjut, modalLihatLanjutContent));
-        if (btnOkModalLihatLanjut) btnOkModalLihatLanjut.addEventListener('click', () => closeModalEnhanced(modalLihatLanjut, modalLihatLanjutContent));
-        if (modalLihatLanjut) {
-            modalLihatLanjut.addEventListener('click', (e) => {
-                if (e.target === modalLihatLanjut) closeModalEnhanced(modalLihatLanjut, modalLihatLanjutContent);
-            });
-        }
-
-        function populateDetailModal(row) {
-            document.getElementById('detail-nama').textContent = row.dataset.nama || 'N/A';
-            document.getElementById('detail-npm').textContent = row.dataset.npm || 'N/A';
-            document.getElementById('detail-no_wa').textContent = row.dataset.no_wa || 'N/A';
-            document.getElementById('detail-mk_1').textContent = row.dataset.mk_1 || 'N/A';
-            document.getElementById('detail-mk_2').textContent = row.dataset.mk_2 || 'Tidak Ada';
-            document.getElementById('detail-alasan').textContent = row.dataset.alasan || 'N/A';
-            document.getElementById('detail-bersedia_2_mk').textContent = row.dataset.bersedia_2_mk || 'N/A';
-            document.getElementById('detail-pernah_asdos').textContent = row.dataset.pernah_asdos || 'N/A';
-            document.getElementById('detail-bersedia_mk_lain').textContent = row.dataset.bersedia_mk_lain || 'N/A';
-            const suratImg = document.getElementById('detail-surat_pernyataan_url');
-            suratImg.src = row.dataset.surat_pernyataan_url || 'https://via.placeholder.com/300x100.png?text=Tidak+Ada+Gambar';
-            suratImg.alt = "Surat Pernyataan " + (row.dataset.nama || '');
-        }
-
-
-        if (btnTambahPendaftar) {
-            btnTambahPendaftar.addEventListener('click', () => {
-                currentlyEditingRow = null;
-                if(formAddEditPendaftar) formAddEditPendaftar.reset(); // Ini akan memilih opsi <option value="" disabled selected>
-                if(pendaftarIdInput) pendaftarIdInput.value = '';
-                if(modalPendaftarTitle) modalPendaftarTitle.textContent = 'Tambah Pendaftar Baru';
-                if(modalPendaftarSubmitBtn) modalPendaftarSubmitBtn.textContent = 'Simpan';
-                if(pendaftarNpmInput) pendaftarNpmInput.readOnly = false;
-                // pendaftarStatusSelect.value = ""; // Pastikan placeholder terpilih saat tambah baru
-                if(previewSuratEdit) {
-                    previewSuratEdit.classList.add('hidden');
-                    previewSuratEdit.src = '';
-                }
-                openModalEnhanced(modalAddEditPendaftar, modalAddEditContent);
-            });
-        }
-        if (inputSuratPernyataanUrl) {
-            inputSuratPernyataanUrl.addEventListener('input', function() {
-                if (this.value && (this.value.startsWith('http://') || this.value.startsWith('https://'))) {
-                    if(previewSuratEdit) {
-                        previewSuratEdit.src = this.value;
-                        previewSuratEdit.classList.remove('hidden');
-                    }
-                } else {
-                    if(previewSuratEdit) {
-                        previewSuratEdit.classList.add('hidden');
-                        previewSuratEdit.src = '';
-                    }
-                }
-            });
-        }
-
-
-        if (btnCloseModalAddEdit) btnCloseModalAddEdit.addEventListener('click', () => closeModalEnhanced(modalAddEditPendaftar, modalAddEditContent));
-        if (btnCancelModalAddEdit) btnCancelModalAddEdit.addEventListener('click', () => closeModalEnhanced(modalAddEditPendaftar, modalAddEditContent));
-         if (modalAddEditPendaftar) {
-            modalAddEditPendaftar.addEventListener('click', (e) => {
-                if (e.target === modalAddEditPendaftar) closeModalEnhanced(modalAddEditPendaftar, modalAddEditContent);
-            });
-        }
-
-        if(formAddEditPendaftar){
-            formAddEditPendaftar.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(formAddEditPendaftar);
-                const pendaftarData = {
-                    id: currentlyEditingRow ? currentlyEditingRow.dataset.id : Date.now().toString(), 
-                    nama: formData.get('nama'),
-                    npm: formData.get('npm'),
-                    no_wa: formData.get('no_wa'),
-                    status: formData.get('status'),
-                    mk_1: formData.get('mk_1'),
-                    mk_2: formData.get('mk_2') || '',
-                    alasan: formData.get('alasan'),
-                    bersedia_2_mk: formData.get('bersedia_2_mk'),
-                    pernah_asdos: formData.get('pernah_asdos'),
-                    bersedia_mk_lain: formData.get('bersedia_mk_lain'),
-                    surat_pernyataan_url: formData.get('surat_pernyataan_url') || 'https://via.placeholder.com/300x100.png?text=Tidak+Ada+Gambar'
-                };
-
-                if (!pendaftarData.status) { // Validasi jika status belum dipilih
-                    alert("Silakan pilih status pendaftaran.");
-                    pendaftarStatusSelect.focus();
-                    return;
-                }
-
-                if (currentlyEditingRow) {
-                    updateTableRow(currentlyEditingRow, pendaftarData);
-                } else {
-                    addNewTableRow(pendaftarData);
-                }
-                updatePendaftarTableInfo();
-                closeModalEnhanced(modalAddEditPendaftar, modalAddEditContent);
-            });
-        }
-
-        function updateTableRow(row, data) {
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    row.dataset[key] = data[key];
-                }
-            }
-            row.cells[0].innerHTML = `
-                <div>
-                    <div class="text-sm font-semibold text-gray-100">${data.nama}</div>
-                    <div class="text-xs text-gray-400 mt-0.5">NPM: ${data.npm}</div>
-                </div>`;
-            row.cells[1].textContent = data.no_wa;
-            const statusSpan = row.cells[2].querySelector('span');
-            statusSpan.textContent = data.status;
-            statusSpan.className = 'px-3 py-1 text-xs font-semibold rounded-full leading-normal '; 
-            if (data.status === 'Diterima') {
-                statusSpan.classList.add('text-green-400', 'bg-green-500/20');
-            } else if (data.status === 'Ditolak') {
-                statusSpan.classList.add('text-red-400', 'bg-red-500/20');
-            } else { // Dalam Review
-                statusSpan.classList.add('text-yellow-400', 'bg-yellow-500/20');
-            }
-        }
-
-        function addNewTableRow(data) {
-            if (!tabelPendaftarBody) return;
-            const newRow = tabelPendaftarBody.insertRow(0); 
-            newRow.classList.add('hover:bg-gray-700/60', 'transition-colors', 'duration-150', 'ease-in-out');
-
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    newRow.dataset[key] = data[key];
-                }
-            }
-
-            let statusColorClass = 'text-yellow-400 bg-yellow-500/20'; 
-            if (data.status === 'Diterima') {
-                statusColorClass = 'text-green-400 bg-green-500/20';
-            } else if (data.status === 'Ditolak') {
-                statusColorClass = 'text-red-400 bg-red-500/20';
-            }
-
-            newRow.innerHTML = `
-                <td class="px-6 py-4 align-top">
-                    <div>
-                        <div class="text-sm font-semibold text-gray-100">${data.nama}</div>
-                        <div class="text-xs text-gray-400 mt-0.5">NPM: ${data.npm}</div>
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-300 align-top">${data.no_wa}</td>
-                <td class="px-6 py-4 align-top">
-                    <span class="px-3 py-1 text-xs font-semibold rounded-full ${statusColorClass} leading-normal">${data.status}</span>
-                </td>
-                <td class="px-6 py-4 align-top text-center">
-                    <div class="flex items-center justify-center space-x-2">
-                        <button type="button" class="text-secondary hover:underline text-sm font-medium btn-lihat-lanjut">Detail</button>
-                        <button title="Edit Pendaftar" class="text-gray-300 hover:text-secondary p-1.5 rounded-md hover:bg-gray-600/50 transition-colors btn-edit-pendaftar"><i class="ri-pencil-line ri-lg"></i></button>
-                        <button title="Hapus Pendaftar" class="text-gray-300 hover:text-red-400 p-1.5 rounded-md hover:bg-gray-600/50 transition-colors btn-hapus-pendaftar"><i class="ri-delete-bin-line ri-lg"></i></button>
-                    </div>
-                </td>
-            `;
-        }
-
-        if(tabelPendaftarBody) {
-            tabelPendaftarBody.addEventListener('click', function(e) {
-                const row = e.target.closest('tr');
-                if (!row || !row.dataset.id) return; 
-
-                if (e.target.closest('.btn-lihat-lanjut')) {
-                    populateDetailModal(row);
-                    openModalEnhanced(modalLihatLanjut, modalLihatLanjutContent);
-                } else if (e.target.closest('.btn-edit-pendaftar')) {
-                    currentlyEditingRow = row;
-                    if(modalPendaftarTitle) modalPendaftarTitle.textContent = 'Edit Pendaftar';
-                    if(modalPendaftarSubmitBtn) modalPendaftarSubmitBtn.textContent = 'Update';
-                    if(pendaftarNpmInput) pendaftarNpmInput.readOnly = true; 
-
-                    if(pendaftarIdInput) pendaftarIdInput.value = row.dataset.id;
-                    document.getElementById('pendaftar-nama').value = row.dataset.nama;
-                    if(pendaftarNpmInput) pendaftarNpmInput.value = row.dataset.npm;
-                    document.getElementById('pendaftar-no_wa').value = row.dataset.no_wa;
-                    if(pendaftarStatusSelect) pendaftarStatusSelect.value = row.dataset.status; // Set nilai select
-                    document.getElementById('pendaftar-mk_1').value = row.dataset.mk_1;
-                    document.getElementById('pendaftar-mk_2').value = row.dataset.mk_2;
-                    document.getElementById('pendaftar-alasan').value = row.dataset.alasan;
-                    document.getElementById('pendaftar-bersedia_2_mk').value = row.dataset.bersedia_2_mk;
-                    document.getElementById('pendaftar-pernah_asdos').value = row.dataset.pernah_asdos;
-                    document.getElementById('pendaftar-bersedia_mk_lain').value = row.dataset.bersedia_mk_lain;
-                    
-                    const suratUrl = row.dataset.surat_pernyataan_url;
-                    if(inputSuratPernyataanUrl) inputSuratPernyataanUrl.value = suratUrl;
-                    if (previewSuratEdit && suratUrl && (suratUrl.startsWith('http://') || suratUrl.startsWith('https://'))) {
-                        previewSuratEdit.src = suratUrl;
-                        previewSuratEdit.classList.remove('hidden');
-                    } else if (previewSuratEdit) {
-                        previewSuratEdit.classList.add('hidden');
-                        previewSuratEdit.src = '';
-                    }
-                    openModalEnhanced(modalAddEditPendaftar, modalAddEditContent);
-
-                } else if (e.target.closest('.btn-hapus-pendaftar')) {
-                    if (confirm('Apakah Anda yakin ingin menghapus pendaftar "' + row.dataset.nama + '"? Aksi ini tidak dapat diurungkan.')) {
-                        row.remove();
-                        updatePendaftarTableInfo();
-                    }
-                }
-            });
-        }
-
-        function updatePendaftarTableInfo() {
-            if (!tabelPendaftarBody) return;
-            const rowCount = tabelPendaftarBody.querySelectorAll('tr').length;
-            const showingFrom = document.getElementById('pendaftar-showing-from');
-            const showingTo = document.getElementById('pendaftar-showing-to');
-            const totalResults = document.getElementById('pendaftar-total-results');
-
-            if (rowCount === 0) {
-                if(noResultsPendaftarDiv) noResultsPendaftarDiv.classList.remove('hidden');
-                if(showingFrom) showingFrom.textContent = '0';
-                if(showingTo) showingTo.textContent = '0';
-                if(totalResults) totalResults.textContent = '0';
-            } else {
-                if(noResultsPendaftarDiv) noResultsPendaftarDiv.classList.add('hidden');
-                if(showingFrom) showingFrom.textContent = '1';
-                if(showingTo) showingTo.textContent = rowCount;
-                if(totalResults) totalResults.textContent = rowCount;
-            }
-        }
-        updatePendaftarTableInfo(); // Initial call
-
-        const searchInputPendaftar = document.getElementById('search-input-pendaftar');
-        const filterStatusPendaftar = document.getElementById('filter-status-pendaftar');
-        const btnFilterPendaftar = document.getElementById('btn-filter-pendaftar');
-
-        if (btnFilterPendaftar) {
-            btnFilterPendaftar.addEventListener('click', function() {
-                const searchTerm = searchInputPendaftar.value.toLowerCase();
-                const selectedStatus = filterStatusPendaftar.value;
-                let visibleRows = 0;
-
-                if(!tabelPendaftarBody) return;
-                const rows = tabelPendaftarBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const nama = (row.dataset.nama || '').toLowerCase();
-                    const npm = (row.dataset.npm || '').toLowerCase();
-                    const status = row.dataset.status || '';
-
-                    const matchesSearch = nama.includes(searchTerm) || npm.includes(searchTerm);
-                    const matchesStatus = selectedStatus === "" || status === selectedStatus;
-
-                    if (matchesSearch && matchesStatus) {
-                        row.style.display = '';
-                        visibleRows++;
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-                
-                const showingFrom = document.getElementById('pendaftar-showing-from');
-                const showingTo = document.getElementById('pendaftar-showing-to');
-
-                if (visibleRows === 0) {
-                    if(noResultsPendaftarDiv) noResultsPendaftarDiv.classList.remove('hidden');
-                    if(showingFrom) showingFrom.textContent = '0';
-                    if(showingTo) showingTo.textContent = '0';
-                } else {
-                   if(noResultsPendaftarDiv) noResultsPendaftarDiv.classList.add('hidden');
-                   if(showingFrom) showingFrom.textContent = '1';
-                   if(showingTo) showingTo.textContent = visibleRows;
-                }
-            });
-        }
-    });
-    </script>
+    <script src="js/pendaftarManager.js"></script>
     <style>
         .form-label-custom {
             @apply block text-sm font-medium text-gray-300 mb-1.5;
         }
         .form-input-custom-modal {
-            @apply w-full px-4 py-2.5 bg-gray-700/70 border border-gray-600 text-gray-200 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary transition-colors duration-150 ease-in-out placeholder-gray-400/70;
+            @apply w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600/50 text-gray-200 rounded-lg 
+                   focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 
+                   hover:bg-gray-700/70 hover:border-gray-500/50
+                   transition-all duration-200 ease-in-out 
+                   placeholder-gray-400/50
+                   shadow-sm hover:shadow-md focus:shadow-lg;
+            line-height: 1.5; 
         }
+        .form-input-custom-modal.pl-10 { 
+            padding-left: 2.5rem; 
+        }
+        textarea.form-input-custom-modal.pl-10 { 
+             padding-left: 2.5rem;
+        }
+
+        .form-group {
+            @apply transition-all duration-200 ease-in-out;
+        }
+        .form-group:focus-within {
+            @apply transform scale-[1.01];
+        }
+        .form-group:focus-within .form-label-custom {
+            @apply text-secondary;
+        }
+        .form-group .input-icon { 
+            @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors duration-200;
+        }
+        
+        .form-group .input-icon.top-align { 
+            @apply absolute left-3 text-gray-400 transition-colors duration-200;
+            top: 0.625rem; 
+            transform: none; 
+        }
+        .form-group:focus-within .input-icon, 
+        .form-group.field-active .input-icon {
+            @apply text-secondary;
+        }
+        .form-group textarea.form-input-custom-modal {
+            @apply resize-none;
+        }
+        
+        .form-group select.form-input-custom-modal {
+            @apply appearance-none cursor-pointer bg-no-repeat;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239CA3AF'%3E%3Cpath d='M12 15.0006L7.75732 10.758L9.17154 9.34375L12 12.1722L14.8284 9.34375L16.2426 10.758L12 15.0006Z'%3E%3C/path%3E%3C/svg%3E");
+            background-position: right 0.75rem center;
+            background-size: 1.25em 1.25em; 
+            padding-right: 3rem; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .form-group:focus-within select.form-input-custom-modal,
+        .form-group.field-active select.form-input-custom-modal {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFCC00'%3E%3Cpath d='M12 15.0006L7.75732 10.758L9.17154 9.34375L12 12.1722L14.8284 9.34375L16.2426 10.758L12 15.0006Z'%3E%3C/path%3E%3C/svg%3E");
+        }
+        .form-group select.form-input-custom-modal::-ms-expand { 
+            display: none;
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #374151; /* bg-gray-700 */
+            background: #374151;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #6b7280; /* bg-gray-500 */
+            background: #6b7280;
             border-radius: 3px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af; /* bg-gray-400 */
+            background: #9ca3af;
         }
     </style>
 
