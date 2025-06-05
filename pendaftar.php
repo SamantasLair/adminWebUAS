@@ -1,7 +1,6 @@
 <?php
 session_start(); 
 
-// // Cek autentikasi (aktifkan jika sudah ada sistem login yang berfungsi)
 // if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 //     header('Location: login.php');
 //     exit;
