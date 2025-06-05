@@ -1,31 +1,26 @@
 <?php
-session_start(); // Mulai session jika belum dimulai
+session_start();
 
-// // Cek autentikasi (aktifkan jika sudah ada sistem login yang berfungsi)
 // if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 //     header('Location: login.php');
 //     exit;
 // }
 
-// Definisikan variabel khusus untuk halaman ini
 $pageTitle = "Jadwal Wawancara";
-$currentPage = "jadwal_wawancara"; // Untuk menandai menu aktif
+$currentPage = "jadwal_wawancara";
 
-// 1. Include Komponen Head HTML
 require __DIR__ . '/components/html_head.php'; 
 ?>
 
 <body class="bg-primary text-gray-300">
     
     <?php 
-    // 2. Include Komponen Header Admin
     require __DIR__ . '/components/admin_header.php'; 
     ?>
 
     <div class="flex min-h-screen pt-[68px] sm:pt-[72px]"> 
         
         <?php 
-        // 3. Include Komponen Sidebar Admin
         require __DIR__ . '/components/admin_sidebar.php'; 
         ?>
 
@@ -57,7 +52,7 @@ require __DIR__ . '/components/html_head.php';
                             <option value="menunggu">Menunggu Konfirmasi</option>
                         </select>
                     </div>
-                     <button class="bg-gray-600 hover:bg-gray-500 text-gray-200 px-4 py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 h-[46px] sm:h-auto sm:self-end">
+                    <button class="bg-gray-600 hover:bg-gray-500 text-gray-200 px-4 py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 h-[46px] sm:h-auto sm:self-end">
                         <i class="ri-filter-3-line"></i>
                         <span>Filter Jadwal</span>
                     </button>
@@ -77,7 +72,6 @@ require __DIR__ . '/components/html_head.php';
                         </thead>
                         <tbody class="divide-y divide-gray-700">
                             <?php 
-                            // Data dummy (Mata Kuliah telah dihapus dari array)
                             $jadwal_list = [
                                 ["id" => 1, "tanggal" => "2025-06-10", "waktu_mulai" => "09:00", "waktu_selesai" => "09:30", "nama_calon" => "Ahmad Fauzi", "nim_calon" => "201011400001", "pewawancara" => "Dr. Indah Permatasari", "lokasi" => "Ruang R.301", "status" => "Terjadwal"],
                                 ["id" => 2, "tanggal" => "2025-06-10", "waktu_mulai" => "10:00", "waktu_selesai" => "10:30", "nama_calon" => "Bunga Citra Lestari", "nim_calon" => "211011400002", "pewawancara" => "Prof. Budi Santoso", "lokasi" => "Online (Zoom)", "status" => "Selesai"],

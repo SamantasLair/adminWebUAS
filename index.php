@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-// Simple authentication check
 if (isset($_POST['username']) && isset($_POST['password'])) {
-    // In a real application, you would validate against a database
     if ($_POST['username'] === 'admin' && $_POST['password'] === 'password') {
         $_SESSION['logged_in'] = true;
-        header('Location: dashboard.php'); // Asumsikan dashboard.php adalah halaman setelah login
+        header('Location: dashboard.php');
         exit;
     } else {
         $error = "Nama pengguna atau kata sandi tidak valid.";
@@ -26,17 +24,17 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'], // Poppins sebagai font sans-serif default
+                        sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        'dark-bg': '#111827',      // Contoh: gray-900
-                        'dark-card': '#1F2937',    // Contoh: gray-800
-                        'dark-accent': '#FFCC00',  // Kuning utama
-                        'dark-accent-hover': '#FFB100', // Kuning lebih gelap untuk hover
-                        'dark-text-primary': '#F3F4F6', // Contoh: gray-100
-                        'dark-text-secondary': '#9CA3AF', // Contoh: gray-400
-                        'dark-border': '#374151', // Contoh: gray-700
-                        'dark-input-bg': '#374151', // Contoh: gray-700
+                        'dark-bg': '#111827',
+                        'dark-card': '#1F2937',
+                        'dark-accent': '#FFCC00',
+                        'dark-accent-hover': '#FFB100',
+                        'dark-text-primary': '#F3F4F6',
+                        'dark-text-secondary': '#9CA3AF',
+                        'dark-border': '#374151',
+                        'dark-input-bg': '#374151',
                     }
                 }
             }
@@ -79,7 +77,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 </div>
             <?php endif; ?>
             
-            <form method="post" action="login.php">  <div class="mb-5">
+            <form method="post" action="login.php"> 
+                <div class="mb-5">
                     <label class="form-label-custom" for="username">
                         Nama Pengguna
                     </label>
@@ -99,7 +98,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     </button>
                 </div>
             </form>
-             <p class="text-center text-dark-text-secondary text-xs mt-8">
+            <p class="text-center text-dark-text-secondary text-xs mt-8">
                 &copy; <?php echo date("Y"); ?> Portal Rekrutmen Asisten Dosen
             </p>
         </div>

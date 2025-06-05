@@ -1,31 +1,26 @@
 <?php
-session_start(); // Mulai session jika belum dimulai
+session_start();
 
-// // Cek autentikasi (aktifkan jika sudah ada sistem login yang berfungsi)
 // if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 //     header('Location: login.php');
 //     exit;
 // }
 
-// Definisikan variabel khusus untuk halaman ini
 $pageTitle = "Pengaturan";
-$currentPage = "pengaturan"; // Untuk menandai menu aktif
+$currentPage = "pengaturan";
 
-// 1. Include Komponen Head HTML
 require __DIR__ . '/components/html_head.php'; 
 ?>
 
 <body class="bg-primary text-gray-300">
     
     <?php 
-    // 2. Include Komponen Header Admin
     require __DIR__ . '/components/admin_header.php'; 
     ?>
 
     <div class="flex min-h-screen pt-[68px] sm:pt-[72px]"> 
         
         <?php 
-        // 3. Include Komponen Sidebar Admin
         require __DIR__ . '/components/admin_sidebar.php'; 
         ?>
 
@@ -42,7 +37,7 @@ require __DIR__ . '/components/html_head.php';
                                 <input type="text" name="admin-name" id="admin-name" value="Admin Utama"
                                     class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 text-gray-200 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary placeholder-gray-400">
                             </div>
-                             <div>
+                            <div>
                                 <label for="admin-avatar" class="block text-sm font-medium text-gray-300 mb-1.5">Foto Profil</label>
                                 <div class="flex items-center space-x-4">
                                     <img class="h-16 w-16 rounded-full object-cover" src="https://i.pravatar.cc/150?u=adminutama" alt="Admin Avatar">

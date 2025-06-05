@@ -1,19 +1,13 @@
 <?php
 session_start();
 
-// Simple authentication check
-// Di aplikasi nyata, validasi ini akan dilakukan terhadap database.
-// kredensial contoh: admin / password
 if (isset($_POST['username']) && isset($_POST['password'])) {
-    $username_valid = 'admin'; // Ganti dengan username dari database atau konfigurasi
-    $password_valid = 'password'; // Ganti dengan hash password dari database atau konfigurasi
-
-    // Untuk contoh ini, kita tidak menggunakan hashing password.
-    // Dalam aplikasi produksi, SELALU gunakan password_hash() dan password_verify().
+    $username_valid = 'admin';
+    $password_valid = 'password'; 
     if ($_POST['username'] === $username_valid && $_POST['password'] === $password_valid) {
         $_SESSION['logged_in'] = true;
-        $_SESSION['username'] = $_POST['username']; // Simpan username di session jika perlu
-        header('Location: dashboard.php'); // Arahkan ke dashboard.php setelah login berhasil
+        $_SESSION['username'] = $_POST['username'];
+        header('Location: dashboard.php'); 
         exit;
     } else {
         $error = "Nama pengguna atau kata sandi tidak valid.";
@@ -33,17 +27,17 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'], // Poppins sebagai font sans-serif default
+                        sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        'dark-bg': '#111827',      // Contoh: gray-900
-                        'dark-card': '#1F2937',    // Contoh: gray-800
-                        'dark-accent': '#FFCC00',  // Kuning utama (dari tema sebelumnya #FFCC00)
-                        'dark-accent-hover': '#FFB100', // Kuning lebih gelap untuk hover (dari tema sebelumnya #FFB100)
-                        'dark-text-primary': '#F3F4F6', // Contoh: gray-100
-                        'dark-text-secondary': '#9CA3AF', // Contoh: gray-400
-                        'dark-border': '#374151', // Contoh: gray-700
-                        'dark-input-bg': '#374151', // Contoh: gray-700
+                        'dark-bg': '#111827',
+                        'dark-card': '#1F2937',
+                        'dark-accent': '#FFCC00',
+                        'dark-accent-hover': '#FFB100',
+                        'dark-text-primary': '#F3F4F6',
+                        'dark-text-secondary': '#9CA3AF',
+                        'dark-border': '#374151',
+                        'dark-input-bg': '#374151',
                     }
                 }
             }
@@ -59,7 +53,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             }
         }
         .gradient-yellow-bg {
-            background: linear-gradient(135deg,  #FFCC00 0%, #FFB100 100%); /* Menggunakan warna dark-accent dan dark-accent-hover */
+            background: linear-gradient(135deg, #FFCC00 0%, #FFB100 100%); 
         }
         .btn-login {
             @apply w-full gradient-yellow-bg text-black font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg 
@@ -115,7 +109,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     </button>
                 </div>
             </form>
-             <p class="text-center text-dark-text-secondary text-xs mt-10">
+            <p class="text-center text-dark-text-secondary text-xs mt-10">
                 &copy; <?php echo date("Y"); ?> Fakultas Ilmu Komputer. Hak Cipta Dilindungi.
             </p>
         </div>
